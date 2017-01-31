@@ -1,0 +1,114 @@
+{
+  "name": "default",
+  "type": "default",
+  "options": {
+    "sources": [
+      {
+        "path": "./"
+      }
+    ],
+    "cleanPath": ".gdd-clean"
+  },
+  "swBlocks": [
+    {
+      "type": "starterkit",
+      "version": "0.0.2",
+      "options": {
+        "jsonification": [
+          {
+            "target": "package.js",
+            "to": "package.json"
+          }
+        ],
+        "sources": [
+          {
+            "path": "./"
+          }
+        ],
+        "cleanPath": ".gdd-clean"
+      },
+      "sourceCodeFiles": [
+        {
+          "name": "package.js",
+          "path": "package.js",
+          "options": {
+            "jsonification": [
+              {
+                "target": "package.js",
+                "to": "package.json"
+              }
+            ],
+            "sources": [
+              {
+                "path": "./"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        },
+        {
+          "name": ".editorconfig",
+          "path": ".editorconfig",
+          "options": {
+            "jsonification": [
+              {
+                "target": "package.js",
+                "to": "package.json"
+              }
+            ],
+            "sources": [
+              {
+                "path": "./"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        },
+        {
+          "name": ".gitignore",
+          "path": ".gitignore",
+          "options": {
+            "jsonification": [
+              {
+                "target": "package.js",
+                "to": "package.json"
+              }
+            ],
+            "sources": [
+              {
+                "path": "./"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        }
+      ]
+    },
+    {
+      "type": "reactMocha",
+      "version": "0.0.0",
+      "options": {
+        "sources": [
+          {
+            "path": "./"
+          }
+        ],
+        "cleanPath": ".gdd-clean"
+      },
+      "sourceCodeFiles": [
+        {
+          "name": "mocha.setup.js",
+          "path": "mocha.setup.js",
+          "options": {
+            "sources": [
+              {
+                "path": "./"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        }
+      ]
+    }
+  ]
+}
