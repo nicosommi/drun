@@ -61,6 +61,7 @@ packageObject = {
     'custom': {
       'image': 'node:custom',
       'workingDirectory': '/home/myself',
+      'commandType': 'raw',
       'ports': {
         '9000': '80'
       },

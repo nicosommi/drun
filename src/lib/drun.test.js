@@ -99,7 +99,7 @@ describe('DRun', () => {
           'node:custom',
           '/bin/sh',
           '-c',
-          'npm run mycommand'
+          'mycommand'
         ]
       ]
 

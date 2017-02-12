@@ -92,6 +92,7 @@ For example, you can have this:
 ```
 Note the new building object with a different image.
 Now, if you run `npm run drun build building` it will execute `npm run build` with the node:alpine image.
+The general command is `npm run drun <command> <container>`.
 
 ## Considerations
 - You can use your own images, but the building process is on you, that's by design.
@@ -102,30 +103,36 @@ The `default` configuration is
 ``` javascript
 {
   "drun": {
-    "image": "node:alpine",
-    "ports": {}, //this is random
-    "volumes": {
-      "./:/src"
-    },
-    "workingDirectory": "/src"
+    "default": {
+      "image": "node:alpine",
+      "ports": {}, //this means random, execute docker port drun-default
+      "volumes": {
+        "./:/src"
+      },
+      "workingDirectory": "/src",
+      "commandType": "npm"
+    }
   }
 }
 ```
 
 ### Custom options
-On ports and volumes you may use an object instead to specify port mappings
+You may use more options:
 ```javascript
 {
   "drun": {
-    "image": "node:alpine",
-    "ports": {
-      "8080": "8080"
-    },
-    "volumes": {
-      "./": "/src",
-      "/home": "/home"
-    },
-    "workingDirectory": "/src"
+    "custom": {
+      "image": "node:alpine",
+      "ports": {
+        "8080": "8080"
+      },
+      "volumes": {
+        "./": "/src",
+        "/home": "/home"
+      },
+      "workingDirectory": "/src",
+      "commandType": "raw"
+    }
   }
 }
 ```
