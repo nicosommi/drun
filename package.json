@@ -32,6 +32,8 @@
   "scripts": {
     "gddify": "gddify",
     "build": "shx rm -fr dist && babel src -d dist",
+    "drun": "node dist/bin/drun.js",
+    "drun:watch": "watch 'node dist/bin/drun.js check' src",
     "test": "standard --fix src && cross-env NODE_ENV=test nyc --reporter=text-summary mocha 'src/**/*.test.js' --require mocha.setup.js",
     "test:watch": "cross-env NODE_ENV=test nyc --reporter=text-summary mocha \"src/**/*.test.js\" --require mocha.setup.js --reporter min --watch",
     "coverage": "cross-env NODE_ENV=test nyc mocha 'src/**/*.test.js' --require mocha.setup.js",
@@ -42,12 +44,28 @@
   "author": "nicosommi",
   "license": "MIT",
   "name": "drun",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "containerized run of scripts",
   "bin": "dist/bin/drun.js",
   "repository": {
     "type": "git",
     "url": "ssh://github.com/nicosommi/drun.git"
+  },
+  "drun": {
+    "default": {
+      "image": "node:alpine"
+    },
+    "custom": {
+      "image": "node:custom",
+      "workingDirectory": "/home/myself",
+      "ports": {
+        "9000": "80"
+      },
+      "volumes": {
+        "./": "/src",
+        "/home": "/home"
+      }
+    }
   },
   "nyc": {
     "lines": 90,

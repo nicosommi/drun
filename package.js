@@ -31,7 +31,7 @@ let packageObject = {
 packageObject = {
   ...packageObject,
   name: 'drun',
-  version: '0.0.0',
+  version: '0.0.1',
   description: 'containerized run of scripts',
   bin: 'dist/bin/drun.js',
   repository: {
@@ -47,8 +47,28 @@ packageObject = {
     'yargs': '^6.6.0',
     'find-up': '^2.1.0'
   },
+  // yes, I also use myself and that is conceptually correct
+  // except for the watch task which is just for testing purposes
   scripts: {
-    ...packageObject.scripts
+    ...packageObject.scripts,
+    'drun': 'node dist/bin/drun.js',
+    'drun:watch': "watch 'node dist/bin/drun.js check' src"
+  },
+  'drun': {
+    'default': {
+      'image': 'node:alpine'
+    },
+    'custom': {
+      'image': 'node:custom',
+      'workingDirectory': '/home/myself',
+      'ports': {
+        '9000': '80'
+      },
+      'volumes': {
+        './': '/src',
+        '/home': '/home'
+      }
+    }
   }
 }
 /* endph */
@@ -153,7 +173,7 @@ packageObject = {
   ...packageObject,
   devDependencies: {
     ...packageObject.devDependencies,
-    'standard': '^8.6.0',
+    standard: '^8.6.0',
     ghooks: '^1.3.2'
   },
   standard: {

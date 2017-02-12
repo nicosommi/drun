@@ -5,6 +5,11 @@
     "sources": [
       {
         "path": "./"
+      },
+      {
+        "path": "../gddify",
+        "name": "mit",
+        "type": "license"
       }
     ],
     "cleanPath": ".gdd-clean"
@@ -23,6 +28,11 @@
         "sources": [
           {
             "path": "./"
+          },
+          {
+            "path": "../gddify",
+            "name": "mit",
+            "type": "license"
           }
         ],
         "cleanPath": ".gdd-clean"
@@ -41,6 +51,11 @@
             "sources": [
               {
                 "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
               }
             ],
             "cleanPath": ".gdd-clean"
@@ -59,6 +74,11 @@
             "sources": [
               {
                 "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
               }
             ],
             "cleanPath": ".gdd-clean"
@@ -77,6 +97,11 @@
             "sources": [
               {
                 "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
               }
             ],
             "cleanPath": ".gdd-clean"
@@ -85,24 +110,123 @@
       ]
     },
     {
-      "type": "reactMocha",
+      "name": "utils",
+      "type": "utils",
       "version": "0.0.0",
       "options": {
         "sources": [
           {
             "path": "./"
+          },
+          {
+            "path": "../gddify",
+            "name": "mit",
+            "type": "license"
           }
         ],
         "cleanPath": ".gdd-clean"
       },
       "sourceCodeFiles": [
         {
-          "name": "mocha.setup.js",
-          "path": "mocha.setup.js",
+          "name": "src/lib/utils/log.js",
+          "path": "src/lib/utils/log.js",
           "options": {
             "sources": [
               {
                 "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        },
+        {
+          "name": "src/lib/utils/log.test.js",
+          "path": "src/lib/utils/log.test.js",
+          "options": {
+            "sources": [
+              {
+                "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        },
+        {
+          "name": "src/lib/utils/promise.test.js",
+          "path": "src/lib/utils/promise.test.js",
+          "options": {
+            "sources": [
+              {
+                "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        },
+        {
+          "name": "src/lib/utils/promise.js",
+          "path": "src/lib/utils/promise.js",
+          "options": {
+            "sources": [
+              {
+                "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
+              }
+            ],
+            "cleanPath": ".gdd-clean"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mit",
+      "type": "license",
+      "version": "0.0.1",
+      "options": {
+        "sources": [
+          {
+            "path": "./"
+          },
+          {
+            "path": "../gddify",
+            "name": "mit",
+            "type": "license"
+          }
+        ],
+        "cleanPath": ".gdd-clean"
+      },
+      "sourceCodeFiles": [
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "options": {
+            "sources": [
+              {
+                "path": "./"
+              },
+              {
+                "path": "../gddify",
+                "name": "mit",
+                "type": "license"
               }
             ],
             "cleanPath": ".gdd-clean"
