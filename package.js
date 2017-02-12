@@ -39,12 +39,13 @@ packageObject = {
     url: 'ssh://github.com/nicosommi/drun.git'
   },
   dependencies: {
-    ...packageObject.dependencies,
-    tpipe: 'https://github.com/nicosommi/tpipe.git#develop'
+    ...packageObject.dependencies
   },
   devDependencies: {
     ...packageObject.devDependencies,
-    debug: '^2.2.0'
+    debug: '^2.2.0',
+    'yargs': '^6.6.0',
+    'find-up': '^2.1.0'
   },
   scripts: {
     ...packageObject.scripts
