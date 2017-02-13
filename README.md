@@ -105,16 +105,21 @@ The `default` configuration is
   "drun": {
     "default": {
       "image": "node:alpine",
-      "ports": {}, //this means random, execute docker port drun-default
+      "ports": {}, // this means random, execute docker port drun-default
       "volumes": {
-        "./:/src"
+        "./:/src" // drun will convert this to an absolute path atuomatically to make docker happy
       },
       "workingDirectory": "/src",
-      "commandType": "npm"
+      "commandType": "raw" // if raw is specified it does not prefix commands with `npm run`
+      "interactive": true, // useful for some ci environments
+      "tty": true // useful for some ci environments
     }
   }
 }
 ```
+
+A more complex command: `npm run drun "npm i" default`
+This will execute the `npm i` command as a raw command in the default container
 
 ### Custom options
 You may use more options:
@@ -138,4 +143,5 @@ You may use more options:
 ```
 
 MIT
+
 nicosommi

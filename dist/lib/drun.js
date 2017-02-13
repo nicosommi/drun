@@ -16,6 +16,10 @@ var _findUp = require('find-up');
 
 var _findUp2 = _interopRequireDefault(_findUp);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _log = require('./utils/log');
 
 var _log2 = _interopRequireDefault(_log);
@@ -31,6 +35,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var logger = (0, _log2.default)('nicosommi.drun.core');
 
 function massageParameter(prefix, object) {
+  var keyProcessingFunction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function (k) {
+    return k;
+  };
+
   // console.log('massageParameter', { prefix, object })
   if (object && object !== undefined && (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object') {
     var keys = Object.keys(object);
@@ -39,7 +47,7 @@ function massageParameter(prefix, object) {
         var result = [];
         keys.forEach(function (propertyName) {
           result.push('' + prefix);
-          result.push(propertyName + ':' + object[propertyName]);
+          result.push(keyProcessingFunction(propertyName) + ':' + object[propertyName]);
         });
         return {
           v: result
@@ -84,7 +92,9 @@ function drun() {
 
       // console.log('process.env.npm_config_argv', {npmconfigargv: process.env.npm_lifecycle_event, container, containerConfiguration})
 
-      var volumesParameters = massageParameter('-v', containerConfiguration.volumes);
+      var volumesParameters = massageParameter('-v', containerConfiguration.volumes, function (k) {
+        return _path2.default.resolve(currentDirectory, k);
+      });
       if (!volumesParameters) volumesParameters = ['-v', currentDirectory + ':/src'];
 
       var portParameters = massageParameter('-p', containerConfiguration.ports);
@@ -93,7 +103,10 @@ function drun() {
       var workingDirectory = '/src';
       if (containerConfiguration.workingDirectory) workingDirectory = containerConfiguration.workingDirectory;
 
-      var child = (0, _child_process.spawn)('docker', ['run', '-it', '--rm', '--name', containerName, '-w', workingDirectory].concat(_toConsumableArray(portParameters), _toConsumableArray(volumesParameters), ['' + containerConfiguration.image, '/bin/sh', '-c', '' + command]), { stdio: 'inherit' });
+      var interactivityAndTty = ['-it'];
+      if (containerConfiguration.interactive === false && containerConfiguration.tty === false) interactivityAndTty = [];else if (containerConfiguration.interactive === false) interactivityAndTty = ['-t'];else if (containerConfiguration.tty === false) interactivityAndTty = ['-i'];
+
+      var child = (0, _child_process.spawn)('docker', ['run'].concat(_toConsumableArray(interactivityAndTty), ['--rm', '--name', containerName, '-w', workingDirectory], _toConsumableArray(portParameters), _toConsumableArray(volumesParameters), ['' + containerConfiguration.image, '/bin/sh', '-c', '' + command]), { stdio: 'inherit' });
       child.on('error', function (error) {
         reject(error);
       });

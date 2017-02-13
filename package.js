@@ -31,7 +31,7 @@ let packageObject = {
 packageObject = {
   ...packageObject,
   name: 'drun',
-  version: '0.0.1',
+  version: '0.0.3',
   description: 'containerized run of scripts',
   bin: 'dist/bin/drun.js',
   repository: {
@@ -39,13 +39,13 @@ packageObject = {
     url: 'ssh://github.com/nicosommi/drun.git'
   },
   dependencies: {
-    ...packageObject.dependencies
-  },
-  devDependencies: {
-    ...packageObject.devDependencies,
+    ...packageObject.dependencies,
     debug: '^2.2.0',
     'yargs': '^6.6.0',
     'find-up': '^2.1.0'
+  },
+  devDependencies: {
+    ...packageObject.devDependencies
   },
   // yes, I also use myself and that is conceptually correct
   // except for the watch task which is just for testing purposes
@@ -58,10 +58,24 @@ packageObject = {
     'default': {
       'image': 'node:alpine'
     },
+    'customnoitty': {
+      'interactive': false,
+      'tty': false
+    },
+    'customnoi': {
+      'interactive': false,
+      'tty': true
+    },
+    'customnotty': {
+      'interactive': true,
+      'tty': false
+    },
     'custom': {
-      'image': 'node:custom',
-      'workingDirectory': '/home/myself',
+      'image': 'node',
+      'workingDirectory': '/src',
       'commandType': 'raw',
+      'interactive': true,
+      'tty': true,
       'ports': {
         '9000': '80'
       },

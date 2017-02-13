@@ -1,12 +1,13 @@
 import { spawn } from 'child_process'
 import findUp from 'find-up'
+import path from 'path'
 import getLogger from './utils/log'
 
 import dkill from './dkill.js'
 
 const logger = getLogger('nicosommi.drun.core')
 
-function massageParameter (prefix, object) {
+function massageParameter (prefix, object, keyProcessingFunction = k => k) {
   // console.log('massageParameter', { prefix, object })
   if (object && object !== undefined && typeof object === 'object') {
     const keys = Object.keys(object)
@@ -15,7 +16,7 @@ function massageParameter (prefix, object) {
       keys.forEach(
         propertyName => {
           result.push(`${prefix}`)
-          result.push(`${propertyName}:${object[propertyName]}`)
+          result.push(`${keyProcessingFunction(propertyName)}:${object[propertyName]}`)
         }
       )
       return result
@@ -57,7 +58,7 @@ export default function drun (script = 'test', container = 'default') {
 
         // console.log('process.env.npm_config_argv', {npmconfigargv: process.env.npm_lifecycle_event, container, containerConfiguration})
 
-        let volumesParameters = massageParameter('-v', containerConfiguration.volumes)
+        let volumesParameters = massageParameter('-v', containerConfiguration.volumes, (k) => path.resolve(currentDirectory, k))
         if (!volumesParameters) volumesParameters = ['-v', `${currentDirectory}:/src`]
 
         let portParameters = massageParameter('-p', containerConfiguration.ports)
@@ -66,10 +67,15 @@ export default function drun (script = 'test', container = 'default') {
         let workingDirectory = '/src'
         if (containerConfiguration.workingDirectory) workingDirectory = containerConfiguration.workingDirectory
 
+        let interactivityAndTty = ['-it']
+        if (containerConfiguration.interactive === false && containerConfiguration.tty === false) interactivityAndTty = []
+        else if (containerConfiguration.interactive === false) interactivityAndTty = ['-t']
+        else if (containerConfiguration.tty === false) interactivityAndTty = ['-i']
+
         const child = spawn('docker',
           [
             'run',
-            '-it',
+            ...interactivityAndTty,
             '--rm',
             '--name', containerName,
             '-w', workingDirectory,

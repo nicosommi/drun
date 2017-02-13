@@ -92,11 +92,11 @@ describe('DRun', () => {
           '--name',
           'drun-custom',
           '-w',
-          '/home/myself',
+          '/src',
           '-p', '9000:80',
-          '-v', './:/src',
+          '-v', `${process.cwd()}:/src`,
           '-v', '/home:/home',
-          'node:custom',
+          'node',
           '/bin/sh',
           '-c',
           'mycommand'
@@ -105,6 +105,113 @@ describe('DRun', () => {
 
       expect(actual)
         .toEqual(expected)
+    })
+  })
+
+  describe('custom non interactive configuration', () => {
+    beforeEach(function beforeEachBody () {
+      this.spawnSpy = createSpy().andReturn(
+        {
+          on: (name, cb) => {
+            if (name === 'close') {
+              cb()
+            }
+          }
+        }
+      )
+      this.dkillSpy = createSpy().andReturn(Promise.resolve())
+      this.mocks = {
+        'child_process': {
+          spawn: this.spawnSpy
+        },
+        './dkill.js': {
+          default: this.dkillSpy
+        }
+      }
+      this.module = proxyquire('./drun', this.mocks).default
+    })
+
+    describe('no tty no interactive', () => {
+      beforeEach(function beforeEachBody () {
+        return this.module('mycommand', 'customnoitty')
+      })
+
+      it('should build the right volumes, port, etc parameters', function testBody () {
+        const actual = this.spawnSpy.calls[0].arguments.slice(0, 2)[1]
+        const expected = [
+          'run',
+          '--rm',
+          '--name',
+          'drun-customnoitty',
+          '-w',
+          '/src',
+          '-P',
+          '-v', `${process.cwd()}:/src`,
+          'node:alpine',
+          '/bin/sh',
+          '-c',
+          'npm run mycommand'
+        ]
+
+        expect(actual)
+          .toEqual(expected)
+      })
+    })
+
+    describe('no interactive', () => {
+      beforeEach(function beforeEachBody () {
+        return this.module('mycommand', 'customnoi')
+      })
+
+      it('should build the right volumes, port, etc parameters', function testBody () {
+        const actual = this.spawnSpy.calls[0].arguments.slice(0, 2)[1]
+        const expected = [
+          'run',
+          '-t',
+          '--rm',
+          '--name',
+          'drun-customnoi',
+          '-w',
+          '/src',
+          '-P',
+          '-v', `${process.cwd()}:/src`,
+          'node:alpine',
+          '/bin/sh',
+          '-c',
+          'npm run mycommand'
+        ]
+
+        expect(actual)
+          .toEqual(expected)
+      })
+    })
+
+    describe('no tty', () => {
+      beforeEach(function beforeEachBody () {
+        return this.module('mycommand', 'customnotty')
+      })
+
+      it('should build the right volumes, port, etc parameters', function testBody () {
+        const actual = this.spawnSpy.calls[0].arguments.slice(0, 2)[1]
+        const expected = [
+          'run',
+          '-i',
+          '--rm',
+          '--name',
+          'drun-customnotty',
+          '-w',
+          '/src',
+          '-P',
+          '-v', `${process.cwd()}:/src`,
+          'node:alpine',
+          '/bin/sh',
+          '-c',
+          'npm run mycommand'
+        ]
+
+        expect(actual)
+          .toEqual(expected)
+      })
     })
   })
 
