@@ -6,7 +6,11 @@
     ]
   },
   "dependencies": {
-    "nsp": "^2.6.2"
+    "bluebird": "^3.4.7",
+    "debug": "^2.2.0",
+    "find-up": "^2.1.0",
+    "nsp": "^2.6.2",
+    "yargs": "^6.6.0"
   },
   "devDependencies": {
     "gddify": "^0.1.4",
@@ -18,9 +22,6 @@
     "babel-require": "^1.0.1",
     "cross-env": "^3.1.3",
     "shx": "^0.2.2",
-    "debug": "^2.2.0",
-    "yargs": "^6.6.0",
-    "find-up": "^2.1.0",
     "mocha": "^2.5.3",
     "nyc": "^10.0.0",
     "proxyquire": "^1.7.10",
@@ -44,7 +45,7 @@
   "author": "nicosommi",
   "license": "MIT",
   "name": "drun",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "containerized run of scripts",
   "bin": "dist/bin/drun.js",
   "repository": {

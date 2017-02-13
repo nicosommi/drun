@@ -71,7 +71,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
     (0, _mocha.it)('should build the right volumes, port, etc parameters', function testBody() {
       var actual = this.spawnSpy.calls[0].arguments.slice(0, 2);
-      var expected = ['docker', ['run', '-it', '--rm', '--name', 'drun-custom', '-w', '/home/myself', '-p', '9000:80', '-v', './:/src', '-v', '/home:/home', 'node:custom', '/bin/sh', '-c', 'npm run mycommand']];
+      var expected = ['docker', ['run', '-it', '--rm', '--name', 'drun-custom', '-w', '/home/myself', '-p', '9000:80', '-v', './:/src', '-v', '/home:/home', 'node:custom', '/bin/sh', '-c', 'mycommand']];
 
       (0, _expect2.default)(actual).toEqual(expected);
     });

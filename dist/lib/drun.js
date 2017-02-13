@@ -85,7 +85,7 @@ function drun() {
       // console.log('process.env.npm_config_argv', {npmconfigargv: process.env.npm_lifecycle_event, container, containerConfiguration})
 
       var volumesParameters = massageParameter('-v', containerConfiguration.volumes);
-      if (!volumesParameters) volumesParameters = ['-v', currentDirectory + ':/src'];
+      if (!volumesParameters) volumesParameters = ['-v', currentDirectory + ':/src:ro'];
 
       var portParameters = massageParameter('-p', containerConfiguration.ports);
       if (!portParameters) portParameters = ['-P'];
