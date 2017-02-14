@@ -31,7 +31,7 @@ let packageObject = {
 packageObject = {
   ...packageObject,
   name: 'drun',
-  version: '0.0.3',
+  version: '0.0.4',
   description: 'containerized run of scripts',
   bin: 'dist/bin/drun.js',
   repository: {
